@@ -25,14 +25,14 @@ class Main extends CI_Controller {
 
   public function process($url_json_string)
   {
-    echo "<br>URL JSON String " . $url_json_string;
+    //echo "<br>URL JSON String " . $url_json_string;
     $json_string = urldecode($url_json_string);
-    echo "<br>JSON String " . $json_string;
+    //echo "<br>JSON String " . $json_string;
 
     $stdClass = json_decode($json_string);
-    echo "<br>";
-    print_r($stdClass);
-    echo "<br>After<br>";
+    //echo "<br>";
+    //print_r($stdClass);
+    //echo "<br>After<br>";
     $array = json_decode(json_encode($stdClass));
 
     if (array_key_exists('command', $array))
@@ -48,7 +48,10 @@ class Main extends CI_Controller {
 
           $user = $this->users_model->login($username, $password);
 
-          print_r($user);
+          $this->output
+              ->set_content_type('application/json')
+              ->set_output(json_encode($user));
+          //print_r($user);
           break;
       }
     }
